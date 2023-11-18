@@ -23,6 +23,7 @@ const userSchema = new Schema({
 		maxlength: 1,
 		default: "A",
 	},
+    posts: [ { type: mongoose.Types.ObjectId, required: true, ref: 'Post' } ]
 });
 
 module.exports = mongoose.model("User", userSchema);
