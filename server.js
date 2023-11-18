@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 //routes
 const userRoutes = require("./routes/user-routes");
 const postRoutes = require("./routes/post-routes");
+const chatRoutes = require("./routes/chat-routes");
 
 // env variables
 const { config } = require("dotenv");
@@ -17,6 +18,11 @@ app.use(bodyParser.json());
 //routes
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes)
+
+// app.use('/api', require('./routes/api')); 
+app.use('/api/chat', chatRoutes);
+
+module.exports = app;
 
 mongoose
 	.set("strictQuery", false)
