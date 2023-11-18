@@ -90,6 +90,7 @@ exports.userSignup = async (req, res, next) => {
 		name,
 		email,
 		password: hashedPassword,
+        posts:[]
 	});
 
 	// create a user
