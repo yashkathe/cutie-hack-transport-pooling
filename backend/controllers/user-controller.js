@@ -1,8 +1,6 @@
 const User = require("../models/user-model");
 const bcrypt = require("bcrypt");
-
-const { createToken } = require("../utils/token-manager.js");
-const { COOKIE_NAME } = require("../utils/constants.js");
+const jwt = require("jsonwebtoken");
 
 exports.getUsers = async (req, res, next) => {
 	let users;
@@ -42,32 +40,25 @@ exports.userLogin = async (req, res, next) => {
 		return next(new HttpError("Invalid Password", 401));
 	}
 
-	// if user will login again we have to -> set new cookies -> erase previous cookies
-	res.clearCookie(COOKIE_NAME),
-		{
-			path: "/", //cookie directory in browser
-			domain: process.env.DOMAIN, // our website domain
-			httpOnly: true,
-			signed: true,
-		};
-
-	// create token
-	const token = createToken(existingUser._id.toString(), existingUser.email, "7d");
-
-	const expires = new Date();
-	expires.setDate(expires.getDate() + 7);
-
-	res.cookie(COOKIE_NAME, token, {
-		path: "/", //cookie directory in browser
-		domain: process.env.DOMAIN, // our website domain
-		expires, // same as token expiration time
-		httpOnly: true,
-		signed: true,
-	});
+	//create token
+	let token;
+	try {
+		token = jwt.sign(
+			{
+				userId: existingUser.id,
+				email: existingUser.email,
+			},
+			process.env.JWT_KEY,
+			{ expiresIn: "1h" }
+		);
+	} catch (error) {
+		return res.status(500).json({ message: "ERROR", cause: error.message });
+	}
 
 	res.status(200).json({
 		userId: existingUser.id,
 		email: existingUser.email,
+		token: token,
 	});
 };
 
@@ -108,37 +99,24 @@ exports.userSignup = async (req, res, next) => {
 		return res.status(500).json({ message: "ERROR", cause: error.message });
 	}
 
-	// create token and store cookie
-
-	res.clearCookie(COOKIE_NAME),
-		{
-			path: "/", //cookie directory in browser
-			domain: process.env.DOMAIN, // our website domain
-			httpOnly: true,
-			signed: true,
-		};
-
-	// create token
-	const token = createToken(
-		createdUser._id.toString(),
-		createdUser.email,
-		"7d"
-	);
-
-	const expires = new Date();
-	expires.setDate(expires.getDate() + 7);
-
-	res.cookie(COOKIE_NAME, token, {
-		path: "/", //cookie directory in browser
-		domain: process.env.DOMAIN, // our website domain
-		expires, // same as token expiration time
-		httpOnly: true,
-		signed: true,
-	});
+	let token;
+	try {
+		token = jwt.sign(
+			{
+				userId: createdUser.id,
+				email: createdUser.email,
+			},
+			process.env.JWT_KEY,
+			{ expiresIn: "1h" }
+		);
+	} catch (error) {
+		return res.status(500).json({ message: "ERROR", cause: error.message });
+	}
 
 	res.status(201).json({
 		message: "OKAY",
 		userId: createdUser.id,
 		email: createdUser.email,
+		token: token,
 	});
 };
