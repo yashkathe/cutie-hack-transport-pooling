@@ -1,3 +1,4 @@
+import LandingPage from "@/components/landingpage"
 import Search from '../app/components/Search';
 import Login from '../app/components/Login';
 import Post from '../app/components/Post';
