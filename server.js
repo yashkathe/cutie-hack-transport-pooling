@@ -1,12 +1,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const { config } = require("dotenv");
 
+//routes
+const userRoutes = require("./routes/user-routes");
+const postRoutes = require("./routes/post-routes");
+
+// env variables
+const { config } = require("dotenv");
 config();
 
 const app = express();
+
 app.use(bodyParser.json());
+
+//routes
+app.use("/api/user", userRoutes);
 
 mongoose
 	.set("strictQuery", false)
