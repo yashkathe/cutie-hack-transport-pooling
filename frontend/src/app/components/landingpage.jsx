@@ -1,4 +1,4 @@
-import img1 from "../../public/images/landingpagebg.jpg"
+import img1 from "../../../public/images/landingpagebg.jpg"
 const LandingPage = () => {
     /*
     const bodyStyles = {
