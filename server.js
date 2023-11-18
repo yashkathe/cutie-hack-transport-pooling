@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 
 //routes
 app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes)
 
 mongoose
 	.set("strictQuery", false)
