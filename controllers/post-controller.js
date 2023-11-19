@@ -80,11 +80,22 @@ exports.getPostsByUserID = async (req, res, next) => {
 	});
 };
 
+exports.getAllPosts = async (req, res, next) => {
+	let posts;
+
+	try {
+		posts = await Post.find();
+		return res.status(200).json({ message: "OK", posts });
+	} catch (error) {
+		return res.status(500).json({ message: "ERROR", cause: error.message });
+	}
+};
+
 exports.updatePostByID = async (req, res, next) => {
-    console.log('hello')
+	console.log("hello");
 	const { title, description, travelDate, userLocation, destinationPinCode } =
 		req.body;
-    console.log(req.body)
+	console.log(req.body);
 
 	const postId = req.params.postId;
 
@@ -95,7 +106,7 @@ exports.updatePostByID = async (req, res, next) => {
 		return res.status(500).json({ message: "ERROR", cause: error.message });
 	}
 
-    console.log(post)
+	console.log(post);
 
 	post.title = title;
 	post.description = description;
