@@ -1,4 +1,6 @@
-import Talk from "talkjs";
+// import Talk from "talkjs";
+// import doesn't work. idk why
+
 const ChatPage = () => {
     
     return(

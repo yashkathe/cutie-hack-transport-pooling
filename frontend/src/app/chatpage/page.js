@@ -1,5 +1,6 @@
-import ChatPage from "@/components/chatpage"
-export default function Chatpage() {
+import Chatpage from "@/components/chatpage";
+
+export default function chatpage() {
   return (
     <div>
       <Chatpage/>
