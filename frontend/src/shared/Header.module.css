@@ -59,6 +59,10 @@
 	transition: 0.2s;
 }
 
+.link button {
+    color: #a688fa;
+}
+
 .link:hover {
 	background-color: #a688fa;
 	scale: 115%;

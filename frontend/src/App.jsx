@@ -5,10 +5,12 @@ import { useState, useEffect, useCallback } from "react";
 import Home from "./components/Home";
 import Signin from "./components/Signin";
 import Signup from "./components/Signup";
+import UserHome from "./components/UserHome";
+
 
 import { AuthContext } from "../src/Context/auth-context";
 
-let logoutTimer
+let logoutTimer;
 
 function App() {
 	const [token, setToken] = useState(null);
@@ -61,46 +63,36 @@ function App() {
 
 	let routes;
 
-	// if (token) {
-	// 	routes = (
-	// 		<Switch>
-	// 			<Route path='/' exact>
-	// 				<Coupons />
-	// 			</Route>
-	// 			<Route path='/:userId/coupons' exact>
-	// 				<UserCoupons />
-	// 			</Route>
-	// 			<Route path='/:userId/cart'>
-	// 				<Cart />
-	// 			</Route>
-	// 			<Route path='/coupon/new' exact>
-	// 				<AddCoupons />
-	// 			</Route>
-	// 			<Route path='/coupon/:couponId' exact>
-	// 				<UpdateCoupon />
-	// 			</Route>
-	// 			<Redirect to='/' />
-	// 		</Switch>
-	// 	);
-	// } else {
-	// 	routes = (
-			
-	// 	);
-	// }
+	if (token) {
+		routes = (
+			<Routes>
+				<Route path='/' element={<UserHome />} />
+			</Routes>
+		);
+	} else {
+		routes = (
+			<Routes>
+				<Route path='/' element={<Home />} />
+				<Route path='/login' element={<Signin />} />
+				<Route path='/signup' element={<Signup />} />
+			</Routes>
+		);
+	}
 
 	return (
-		<>
+		<AuthContext.Provider
+			value={{
+				isLoggedIn: !!token,
+				token: token,
+				userId,
+				login,
+				logout,
+			}}>
 			<header>
 				<Header />
 			</header>
-			<main>
-				<Routes>
-					<Route path='/' element={<Home />} />
-					<Route path='/login' element={<Signin />} />
-					<Route path='/signup' element={<Signup />} />
-				</Routes>
-			</main>
-		</>
+			<main>{routes}</main>
+		</AuthContext.Provider>
 	);
 }
 

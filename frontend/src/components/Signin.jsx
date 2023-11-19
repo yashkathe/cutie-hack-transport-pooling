@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import FormLabel from "../shared/FormLabels";
-
-import { useHttpClient } from "../../Hooks/useHttpHook";
-import { AuthContext } from "../Context/auth-context";
 
 import styles from "./Signin.module.css";
 
+import { AuthContext } from "../Context/auth-context";
+
 const LoginPage = () => {
-	const { isLoading, error, sendRequest, clearError } = useHttpClient();
+	const auth = useContext(AuthContext);
 
 	const [formData, setFormData] = useState({
 		email: "",
@@ -23,16 +22,28 @@ const LoginPage = () => {
 	};
 
 	const handleLogin = async () => {
+		const url = "http://localhost:5000/api/user/login";
+		const method = "POST";
+		const headers = {
+			"Content-Type": "application/json",
+		};
+
 		try {
-			const responseData = await sendRequest(
-				"http://localhost:5000/api/user/login",
-				"POST",
-				JSON.stringify(formData),
-				{ "Content-Type": "application/json" }
-			);
-			auth.login(responseData.userId, responseData.token);
-		} catch (err) {
-			console.log(err);
+			const response = await fetch(url, {
+				method,
+				headers,
+				body: JSON.stringify(formData),
+			});
+
+			if (response.ok) {
+				const responseData = await response.json();
+				auth.login(responseData.userId, responseData.token);
+			} else {
+				const errorData = await response.json();
+				console.error("Signup failed:", errorData);
+			}
+		} catch (error) {
+			console.error("Error during signup:", error);
 		}
 	};
 

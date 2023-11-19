@@ -3,14 +3,13 @@ import FormLabel from "../shared/FormLabels";
 
 import styles from "./Signup.module.css";
 
-import { useHttpClient } from "../../Hooks/useHttpHook"
+import { useHttpClient } from "../../Hooks/useHttpHook";
 
 const SignupPage = () => {
-	
-    const { isLoading, error, sendRequest, clearError } = useHttpClient();
+	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-    const [formData, setFormData] = useState({
-		username: "",
+	const [formData, setFormData] = useState({
+		name: "",
 		email: "",
 		password: "",
 	});
@@ -24,15 +23,28 @@ const SignupPage = () => {
 	};
 
 	const handleSignup = async () => {
+		const url = "http://localhost:5000/api/user/signup";
+		const method = "POST";
+		const headers = {
+			"Content-Type": "application/json",
+		};
+
 		try {
-			await sendRequest(
-				"http://localhost:5000/api/user/signup",
-				"POST",
-				formData
-			);
-			history.push("/login");
-		} catch (err) {
-			console.log(err);
+			const response = await fetch(url, {
+				method,
+				headers,
+				body: JSON.stringify(formData),
+			});
+
+			if (response.ok) {
+				const responseData = await response.json();
+				console.log("Signup successful:", responseData);
+			} else {
+				const errorData = await response.json();
+				console.error("Signup failed:", errorData);
+			}
+		} catch (error) {
+			console.error("Error during signup:", error);
 		}
 	};
 
@@ -42,10 +54,10 @@ const SignupPage = () => {
 				<h2>Signup Page</h2>
 				<FormLabel
 					label='Username'
-					name='username'
+					name='name'
 					type='text'
 					changeHandler={handleInputChange}
-					value={formData.username}
+					value={formData.name}
 				/>
 				<FormLabel
 					label='Email'
