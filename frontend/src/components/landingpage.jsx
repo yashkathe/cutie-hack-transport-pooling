@@ -1,13 +1,14 @@
 import img1 from "../../public/images/landingpagebg.jpg"
+import img2 from "../../public/images/bplane.jpeg"
 import Link from 'next/link';
 const LandingPage = () => {
     return(
         <div>
             <div>
-                <img className = "absolute opacity-40" src = {img1.src}/>
+                <img className = "absolute" src = {img2.src}/>
             </div>
 
-            <p className = "relative text-indigo-700 tracking-wider font-serif pt-28 text-center font-black text-7xl">CommuteConnect</p>
+            <p className = "relative text-white tracking-wider font-serif pt-28 text-center font-black text-7xl drop-shadow-2xl">CommuteConnect</p>
 
             <div className = "absolute top-0 right-24"> 
                 <Link href = "/signup" className = " bg-gray-900 opacity-80 text-indigo-400 whitespace-nowrap text-lg p-3 mt-4 rounded-md">Sign Up</Link>
@@ -17,7 +18,7 @@ const LandingPage = () => {
                 <Link href = "/login" className = " bg-gray-900 opacity-80 text-indigo-400 whitespace-nowrap text-lg p-3 mt-4 rounded-md">Login</Link>
             </div>
            
-            <div className = "grid grid-cols-2 gap-12 bottom-0 w-full p-4 place-items-center mt-24 bg-stone-950">
+            <div className = "grid grid-cols-2 gap-12 bottom-2 w-full p-4 place-items-center mt-24 bg-stone-950">
 
                 <div className = "bg-gray-900 border border-gray-500 px-28 rounded-lg font-serif mt-8">
                     <p className = " text-indigo-400 text-2xl font-bold text-center whitespace-nowrap mt-4">Why Use CommuteConnect</p>
@@ -46,7 +47,6 @@ const LandingPage = () => {
                         </li>
                         <li>Click <a className = "font-black">Chat</a> to contact the user that best matches your travel plans. Happy Traveling!</li>
                     </ol>
-                    
                 </div>
                 <br></br>
             </div>
