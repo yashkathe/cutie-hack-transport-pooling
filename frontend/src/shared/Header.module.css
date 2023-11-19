@@ -11,16 +11,16 @@
 	color: #e8e6e3;
 }
 
-.main_link{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: c;
-    color: inherit;
+.main_link {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: c;
+	color: inherit;
 }
 
-.main_link:hover{
-    color: inherit;
+.main_link:hover {
+	color: inherit;
 }
 
 .img {
@@ -30,14 +30,14 @@
 	width: 20%;
 }
 
-.img  img {
+.img img {
 	filter: invert(100%);
 	max-height: 100%;
 	max-width: auto;
 }
 
-.img  h1 {
-    font-size: 1.5rem;
+.img h1 {
+	font-size: 1.5rem;
 }
 
 .links {
@@ -47,7 +47,7 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-end;
-    margin-right:2vw;
+	margin-right: 2vw;
 }
 
 .link {
@@ -60,11 +60,13 @@
 }
 
 .link button {
-    color: #a688fa;
+    background-color: transparent;
+    margin: 0;
+	padding: 0.2rem 0.7rem;
+    color:#646cff
 }
 
 .link:hover {
-	background-color: #a688fa;
 	scale: 115%;
 	cursor: pointer;
 }

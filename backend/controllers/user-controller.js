@@ -37,7 +37,7 @@ exports.userLogin = async (req, res, next) => {
 	}
 
 	if (!isValidPassword) {
-		return next(new HttpError("Invalid Password", 401));
+		return res.status(401),json({message:"ERROR", cause : "invalid password"})
 	}
 
 	//create token

@@ -9,6 +9,7 @@ import UserHome from "./components/UserHome";
 
 
 import { AuthContext } from "../src/Context/auth-context";
+import CreatePostForm from "./components/CreatePost";
 
 let logoutTimer;
 
@@ -66,7 +67,8 @@ function App() {
 	if (token) {
 		routes = (
 			<Routes>
-				<Route path='/' element={<UserHome />} />
+				<Route path='/user-home' element={<UserHome />} />
+				<Route path='/create-post' element={<CreatePostForm />} />
 			</Routes>
 		);
 	} else {

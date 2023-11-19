@@ -19,7 +19,7 @@ const postSchema = new Schema({
 		required: true,
 	},
 	userLocation: {
-		type: [Number],
+		type: Number,
 	},
 	destinationPinCode: {
 		type: Number,

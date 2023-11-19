@@ -15,8 +15,8 @@ const Header = () => {
 		links = (
 			<div className={styles.links}>
 				<div className={styles.link}>
-					<Link to='/' className=' '>
-						Home
+					<Link to='/user-home' className=' '>
+						User Home
 					</Link>
 				</div>
 
