@@ -82,7 +82,7 @@ exports.userSignup = async (req, res, next) => {
 	let hashedPassword;
 	try {
 		hashedPassword = await bcrypt.hash(password, 12);
-	} catch (err) {
+	} catch (error) {
 		return res.status(500).json({ message: "ERROR", cause: error.message });
 	}
 
