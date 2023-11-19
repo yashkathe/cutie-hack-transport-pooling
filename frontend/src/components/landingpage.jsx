@@ -1,25 +1,21 @@
 import img1 from "../../public/images/landingpagebg.jpg"
+import Link from 'next/link';
 const LandingPage = () => {
-    /*
-    const bodyStyles = {
-        backgroundColor: "#e4d2ba", 
-      };
-    */
     return(
-        <div /*style={bodyStyles}*/>
+        <div>
             <div>
                 <img className = "absolute opacity-40" src = {img1.src}/>
             </div>
 
+            <p className = "relative text-rose-800 tracking-wider font-serif pt-28 text-center font-black text-7xl">CommuteConnect</p>
+
             <div className = "absolute top-0 right-24"> 
-                <button className = " bg-white opacity-80 text-rose-800 whitespace-nowrap text-lg p-3 mt-4 rounded-md">Sign Up</button>
+                <Link href = "/signup" className = " bg-white opacity-80 text-rose-800 whitespace-nowrap text-lg p-3 mt-4 rounded-md">Sign Up</Link>
             </div>
 
             <div className = "absolute top-0 right-4 z-20"> 
-                <button className = " bg-white opacity-80 text-rose-800 whitespace-nowrap text-lg p-3 mt-4 rounded-md">Login</button>
+                <Link href = "/login" className = " bg-white opacity-80 text-rose-800 whitespace-nowrap text-lg p-3 mt-4 rounded-md">Login</Link>
             </div>
-
-            <p className = "relative text-rose-800 tracking-wider font-serif pt-28 text-center font-black text-7xl">CommuteConnect</p>
            
             <div className = "grid grid-cols-2 gap-16 absolute bottom-4 w-full p-4 place-items-center mx-16 max-w-screen-xl">
                 

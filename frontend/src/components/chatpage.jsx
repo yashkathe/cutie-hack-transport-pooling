@@ -1,3 +1,4 @@
+import Talk from "talkjs";
 const ChatPage = () => {
     
     return(
