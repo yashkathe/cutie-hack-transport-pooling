@@ -1,58 +1,67 @@
 import React, { useState, useEffect } from "react";
 
-import styles from "./UserHome.module.css";
-
-const PostList = () => {
-	const [posts, setPosts] = useState([]);
-	const [searchTerm, setSearchTerm] = useState("");
+const SearchComponent = () => {
+	const [searchQuery, setSearchQuery] = useState("");
+	const [searchResults, setSearchResults] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		fetchDefaultPosts();
-	}, []);
-
-	const fetchDefaultPosts = async () => {
-		try {
-			const response = await fetch(
-				"http://localhost:5000/api/post/get-all-posts"
-			); 
-			if (response.ok) {
-				const defaultPosts = await response.json();
-				setPosts(defaultPosts);
-			} else {
-				console.error("Error fetching default posts");
+		const fetchData = async () => {
+			if (searchQuery.trim() === "") {
+				setSearchResults([]);
+				return;
 			}
-		} catch (error) {
-			console.error("Error fetching default posts:", error);
-		}
-	};
 
-	const handleSearch = (e) => {
-		setSearchTerm(e.target.value);
-	};
+			try {
+				setLoading(true);
 
-	const filteredPosts = posts.filter((post) =>
-		post.title.toLowerCase().includes(searchTerm.toLowerCase())
-	);
+				// Replace 'YOUR_API_ENDPOINT' with the actual API endpoint
+				console.log(searchQuery);
+				const response = await fetch(
+					`http://localhost:5000/api/post/get-posts-by-query/query?query=${searchQuery}`
+				);
+				const data = await response.json();
+                console.log(data)
+				setSearchResults(data); // Assuming the API response is an array of results
+
+				setLoading(false);
+			} catch (error) {
+				console.error("Error fetching data:", error);
+				setLoading(false);
+			}
+		};
+
+		fetchData();
+	}, [searchQuery]);
+
+	const handleSearchChange = (e) => {
+		setSearchQuery(e.target.value);
+	};
 
 	return (
-		<div className={styles.parent}>
-			<h2>Post List</h2>
+		<div>
+			<h2>Search Component</h2>
 			<input
 				type='text'
-				placeholder='Search posts...'
-				value={searchTerm}
-				onChange={handleSearch}
-                className={styles.input}
+				placeholder='Search...'
+				value={searchQuery}
+				onChange={handleSearchChange}
 			/>
+
+			{loading && <p>Loading...</p>}
+
 			<ul>
-				{filteredPosts.map((post) => (
-					<li key={post.id}>
-						<strong>{post.title}</strong>: {post.description}
-					</li>
-				))}
+				{searchResults.length ? (
+					searchResults.map((result) => (
+						<li key={result.id}>{result.title}</li>
+						// Adjust 'id' and 'name' based on the structure of your API response
+					))
+				) : (
+					<div> No such data </div>
+				)}
 			</ul>
 		</div>
 	);
 };
 
-export default PostList;
+export default SearchComponent;
